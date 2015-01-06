@@ -11,7 +11,15 @@ You need [composer](https://getcomposer.org/) to for package management in the b
 ###Getting Started
 1. Clone the repository and run `composer update` to download the required packages.
 
-2. Go to [www.blocktrail.com](https://www.blocktrail.com/) and sign up for a free API account. Create an API key, and then add this to `.env.local.php` for your local environment, and/or to `end.php` if in your production environment. *(note that these files have been added to the .gitignore. You should always keep your API details secret)*
+2. Go to [www.blocktrail.com](https://www.blocktrail.com/) and sign up for a free API account. Create an API key, and then add this to `.env.local.php` for your local environment, and/or to `end.php` if in your production environment as follows:
+
+>     <?php
+>     
+>     return array(
+>       'BLOCKTRAIL_KEY' ='MY_API_KEY',
+>       'BLOCKTRAIL_SECRET' ='MY_API_SECRET',
+>     );
+>   *(note that these files have been added to the .gitignore. You should always keep your API details secret)*
 
 3. run `php artisan serve` to quickly setup a nice little local server serve the app 
 
