@@ -1,0 +1,14 @@
+{
+  "name": "skeleton",
+  "homepage": "https://github.com/dhg/Skeleton",
+  "version": "2.0.2",
+  "_release": "2.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.2",
+    "commit": "8cadd4ae927d7b9becc0e4341a8a0b18735ca21c"
+  },
+  "_source": "https://github.com/dhg/Skeleton.git",
+  "_target": "2.0.*",
+  "_originalSource": "https://github.com/dhg/Skeleton.git"
+}
