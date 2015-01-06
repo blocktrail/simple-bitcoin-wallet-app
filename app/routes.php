@@ -17,3 +17,13 @@ Route::get('/search', array('as' => 'search', 'uses' => 'ExplorerController@sear
 Route::get('/address/{address}', array('as' => 'address', 'uses' => 'ExplorerController@showAddress'));
 Route::get('/block/{block}', array('as' => 'block', 'uses' => 'ExplorerController@showBlock'));
 Route::get('/transaction/{transaction}', array('as' => 'transaction', 'uses' => 'ExplorerController@showTransaction'));
+
+
+Route::get('/login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
+Route::post('/login', array('as' => 'login', 'uses' => 'AuthController@authenticate'));
+
+/*-- Wallet Section --*/
+Route::group(['before' => 'auth'], function($router){
+
+    Route::get('/dashboard', array('as' => 'dashboard', 'uses' => 'WalletController@showDashboard'));
+});
