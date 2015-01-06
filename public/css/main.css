@@ -17,6 +17,12 @@ section {
     font-family: 'Arvo', sans;
 }
 
+.centered {
+    margin:0 auto;
+    left: 0;
+    right: 0;
+}
+
 /*---pagination---*/
 ul.pagination{
     list-style: none;
