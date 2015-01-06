@@ -34,9 +34,3 @@ With the server up and running now, simply navigate to [http://localhost:8000](h
 Get in contact with us at [devs@blocktrail.com](mailto://devs@blocktrail.com) and we'll be happy to help you in any way we can.
 
 A tutorial will be coming soon describing the steps to creating this Bitcoin block explorer with Laravel.
-
-    <?php     
-      return array(
-        'BLOCKTRAIL_KEY' ='MY_API_KEY',
-        'BLOCKTRAIL_SECRET' ='MY_API_SECRET',
-      );
