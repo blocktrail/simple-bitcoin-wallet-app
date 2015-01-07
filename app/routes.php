@@ -28,3 +28,9 @@ Route::group(['before' => 'auth'], function($router){
 
     Route::get('/dashboard', array('as' => 'dashboard', 'uses' => 'WalletController@showDashboard'));
 });
+
+
+Route::get('test', function(){
+    $client = App::make('Blocktrail');
+    return var_dump($client);
+});

@@ -10,7 +10,18 @@ class WalletController extends BaseController {
 
     public function showDashboard()
     {
-        return View::make('wallet.home');
+        //get the user's wallets and their balances
+        $user = User::find(Auth::user()->id);
+        $wallets = $user->wallets;
+        $wallets->each(function($wallet){
+            $wallet->getBalance();
+        });
+
+        $data = array(
+            'wallets' => $wallets
+        );
+
+        return View::make('wallet.home')->with($data);
     }
 
 }

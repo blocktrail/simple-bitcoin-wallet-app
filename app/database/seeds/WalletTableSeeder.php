@@ -4,9 +4,11 @@ class WalletTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('wallets')->delete();
+        //don't clear table as remote wallets have been created
+        //DB::table('wallets')->delete();
 
-        //Wallet::create(array('fname' => 'oisin', 'lname' => 'conolly', 'email' => 'oisin@oacdesigns.com', 'password' => 'test'));
+        $user = User::first();
+        Wallet::create(array('identity' => str_random(40), 'pass' => str_random(6), 'user_id' => $user->id));
     }
 
 }
