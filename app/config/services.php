@@ -32,6 +32,8 @@ return array(
     'blocktrail' => array(
         'key' => $_ENV['BLOCKTRAIL_KEY'],
         'secret' => $_ENV['BLOCKTRAIL_SECRET'],
+        'currency' => 'btc',
+        'disable_ssl' => true,  //disable ssl verification, only for local testing
     ),
 
 );
