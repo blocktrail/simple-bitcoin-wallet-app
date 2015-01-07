@@ -13,16 +13,13 @@ class BlocktrailServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->bind('blocktrail', function($app)
+        $this->app->singleton(array('Blocktrail' => 'Blocktrail\SDK\BlocktrailSDK'), function($app)
         {
-            //$apiCredentials = Config::get('services.blocktrail', ['MY_API_KEY','MY_API_SECRET']);
             $serviceConfig = $app['config']['services.blocktrail'];
             $apiKey = $serviceConfig['key'];
             $apiSecret = $serviceConfig['secret'];
             $currency = $serviceConfig['currency'];
             $testnet = $serviceConfig['testnet'];
-
-            //echo"called";exit;
 
             $bitcoinClient = new BlocktrailSDK($apiKey, $apiSecret, $currency, $testnet);
             if($serviceConfig['disable_ssl']) {
