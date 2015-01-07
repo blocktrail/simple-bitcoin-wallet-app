@@ -121,7 +121,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'App\Providers\BlocktrailServiceProvider',
+		'App\Providers\Blocktrail\BlocktrailServiceProvider',
 
 	),
 
@@ -189,7 +189,6 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
         'View'              => 'Illuminate\Support\Facades\View',
-        'Blocktrail'        => 'Blocktrail\SDK\BlocktrailSDK',
         'Carbon'            => 'Carbon\Carbon',
 
 	),
