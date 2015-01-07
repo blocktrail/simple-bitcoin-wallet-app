@@ -28,7 +28,13 @@ class AuthController extends Controller {
             return Redirect::intended('dashboard');
         } else {
             //authentication failed
-            return Redirect::to('login')->withErrors(array('email' => 'authentication failed'))->withInput(Input::except('password'));
+            return Redirect::route('login')->withErrors(array('email' => 'authentication failed'))->withInput(Input::except('password'));
         }
+    }
+
+    public function logout() {
+
+        Auth::logout();
+        return Redirect::route('home');
     }
 }

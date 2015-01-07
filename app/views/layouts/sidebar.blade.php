@@ -3,6 +3,9 @@
         <ul class="navbar-list">
             <li class="navbar-item"><a class="navbar-link" href="{{URL::route('home')}}">Home</a></li>
             <li class="navbar-item"><a class="navbar-link" href="{{URL::route('dashboard')}}">Dashboard</a></li>
+            @if(Auth::check())
+            <li class="navbar-item"><a class="navbar-link" href="{{URL::route('logout')}}">Logout</a></li>
+            @endif
 
             @if(Route::currentRouteName() != 'home')
             <li class="navbar-item u-pull-right">

@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration {
 			$table->string('lname', 16)->nullable();
 			$table->string('email', 24)->unique();
 			$table->string('password', 64);
-			$table->integer('wallet_id')->nullable();
+			$table->string('remember_token')->nullable();
 			$table->timestamps();
 		});
 	}

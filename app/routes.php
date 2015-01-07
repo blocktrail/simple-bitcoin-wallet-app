@@ -21,6 +21,7 @@ Route::get('/transaction/{transaction}', array('as' => 'transaction', 'uses' => 
 
 Route::get('/login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
 Route::post('/login', array('as' => 'login', 'uses' => 'AuthController@authenticate'));
+Route::get('/logout', array('as' => 'logout', 'uses' => 'AuthController@logout'));
 
 /*-- Wallet Section --*/
 Route::group(['before' => 'auth'], function($router){
