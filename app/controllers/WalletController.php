@@ -26,8 +26,7 @@ class WalletController extends BaseController {
 
     public function showNewWallet()
     {
-        $data = [];
-        return View::make('wallet.new')->with($data);
+        return View::make('wallet.new');
     }
 
     public function createNewWallet()
@@ -57,7 +56,17 @@ class WalletController extends BaseController {
             $data = array(
                 'newWallet' => $wallet
             );
-            //return the view
+
+            //create a webhook for this wallet
+            if (App::environment('production')) {
+                $url = URL::route('webhook', array('wallet_identity' => $wallet->identity));
+            } else {
+                //can't use http://localhost, must use a reachable URI. Use a Runscope URL for simple testing
+                $url = "https://serene-mesa-9890.herokuapp.com/webhook-test";
+            }
+            $newWebhook = Webhook::create(array('identifier' => $wallet->identity, 'url' => $url, 'wallet_id' => $wallet->id));
+
+            //return the view with new wallet data
             return View::make('wallet.new')->with($data);
         } else {
             //could not create wallet
@@ -89,8 +98,35 @@ class WalletController extends BaseController {
 
     public function showReceivePayment($wallet)
     {
-        $data = [];
+        //get a new address to receive payments to
+        $address = $wallet->getNewAddress();
+        //create a webhook event listening to the new address
+        $wallet->webhook->subscribeAddressTransactions($address);
+        $data = [
+            'wallet' => $wallet,
+            'address' => $address
+        ];
         return View::make('wallet.receive')->with($data);
+    }
+
+    public function sendPaymentRequest($wallet)
+    {
+        //validate input
+        $rules = array(
+            'email' => 'required|email',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            //bad input
+            $data = [
+                'wallet' => $wallet,
+                'address' => Input::get('address')
+            ];
+            return View::make('wallet.receive')->with($data)->withInput(Input::all())->withErrors($validator);
+        }
+
+        //success
+        return View::make('wallet.request-sent')->with($data);
     }
 
 }

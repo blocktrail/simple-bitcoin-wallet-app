@@ -19,6 +19,15 @@ section {
 .margin-l{
     margin-left: 1em;
 }
+
+.text-right{
+    text-align: right;
+}
+
+.text-center{
+    text-align: center;
+}
+
 .btc-value {
     font-family: 'Arvo', sans;
 }

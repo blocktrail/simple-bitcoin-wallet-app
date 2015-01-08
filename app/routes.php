@@ -30,7 +30,7 @@ Route::group(['before' => 'auth'], function($router){
     //Model bindings
     Route::model('wallet', 'Wallet');
 
-    Route::get('/dashboard', array('as' => 'dashboard', 'uses' => 'HomeController@showDashboard'));
+    Route::get('/', array('as' => 'dashboard', 'uses' => 'HomeController@showDashboard'));
 
     //wallet routes
     Route::get('/wallet/new', array('as' => 'wallet.create', 'uses' => 'WalletController@showNewWallet'));
@@ -40,6 +40,7 @@ Route::group(['before' => 'auth'], function($router){
     Route::get('/wallet/{wallet}/send', array('as' => 'wallet.send', 'uses' => 'WalletController@showSendPayment'));
     Route::post('/wallet/{wallet}/send', array('as' => 'wallet.send', 'uses' => 'WalletController@sendPayment'));
     Route::get('/wallet/{wallet}/receive', array('as' => 'wallet.receive', 'uses' => 'WalletController@showReceivePayment'));
+    Route::post('/wallet/{wallet}/send-request', array('as' => 'wallet.send-request', 'uses' => 'WalletController@sendPaymentRequest'));
 });
 
 /*---Webhooks---*/
