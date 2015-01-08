@@ -21,7 +21,7 @@
                 <div class="six offset-by-three columns">
                     <h2 class="section-heading">Login</h2>
                     @if($errors->count() > 0)
-                        <h6>Please check your input</h5>
+                        <h6>Please check your input</h6>
                     @endif
                     {{ Form::open(array('route' => 'login', 'method' => 'post', 'novalidate' => 'true')) }}
                     {{ $errors->first('email') }}
