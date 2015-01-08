@@ -66,9 +66,9 @@ class Wallet extends Eloquent {
 	{
 		return $this->belongsTo('User');
 	}
-	public function webhooks()
+	public function webhook()
 	{
-		return $this->hasMany('Webhook');
+		return $this->hasOne('Webhook');
 	}
 
 	/*---Accessors and Mutators---*/
