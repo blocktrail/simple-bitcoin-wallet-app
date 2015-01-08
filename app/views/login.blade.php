@@ -24,9 +24,9 @@
                         <h6>Please check your input</h6>
                     @endif
                     {{ Form::open(array('route' => 'login', 'method' => 'post', 'novalidate' => 'true')) }}
-                    {{ $errors->first('email') }}
+                    <div class="error">{{ $errors->first('email') }}</div>
                     {{ Form::email('email', Input::old('email'), array('placeholder' => 'you@domain.com', 'class' => 'u-full-width')) }}
-                    {{ $errors->first('password') }}
+                    <div class="error">{{ $errors->first('password') }}</div>
                     {{ Form::password('password',  array('placeholder' => 'password', 'class' => 'u-full-width')) }}
                     {{ Form::submit('login', array('class' => 'u-pull-right')) }}
                     {{ Form::close() }}

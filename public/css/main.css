@@ -13,8 +13,18 @@ section {
 .margin-b{
     margin-bottom: 1em;
 }
+.margin-r{
+    margin-right: 1em;
+}
+.margin-l{
+    margin-left: 1em;
+}
 .btc-value {
     font-family: 'Arvo', sans;
+}
+
+.error{
+    color:#DD5454;
 }
 
 .centered {
@@ -124,8 +134,10 @@ nav ul{
 
 
 
-
-
+/*---Wallet Styles---*/
+code.backup-mnemonic{
+    white-space: normal;
+}
 
 
 
