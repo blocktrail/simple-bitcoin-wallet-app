@@ -48,4 +48,10 @@ class Webhook extends Eloquent {
 		return $this->belongsTo('Wallet');
 	}
 
+	/*---other functions---*/
+	public function subscribeAddressTransactions($address, $confirmations = 6)
+	{
+		return $this->bitcoinClient->subscribeAddressTransactions($this->identifier, $address, $confirmations);
+	}
+
 }

@@ -1,14 +1,10 @@
 <?php
 
-class WalletController extends BaseController {
+class WebhookController extends BaseController {
 
-    public function webhookCalled($address)
+    public function webhookCalled($wallet_identity)
     {
-        //get a new address to receive payments to
-        $address = $wallet->getNewAddress();
-        //create a webhook for new address
-        $data = [];
-        return View::make('wallet.receive')->with($data);
+        //
     }
 
 }
