@@ -8,7 +8,7 @@ class WalletTableSeeder extends Seeder {
         //DB::table('wallets')->delete();
 
         $user = User::first();
-        Wallet::create(array('identity' => str_random(40), 'pass' => str_random(6), 'user_id' => $user->id));
+        Wallet::create(array('identity' => str_random(40), 'name' => 'my wallet', 'pass' => str_random(6), 'user_id' => $user->id));
     }
 
 }

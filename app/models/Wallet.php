@@ -9,6 +9,7 @@ class Wallet extends Eloquent {
 
 	protected $fillable = array(
 		'identity',
+		'name',
 		'pass',
 		'user_id'
 	);
