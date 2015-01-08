@@ -41,6 +41,9 @@
                 <div class="six columns">
                     <h4>Scan QR Code</h4>
                     <h5 class="no-margin">Backup Phrase</h5>
+                    <div class="qr-code">
+                        <div class="qrcode" data-qr="{{ $address }}"></div>
+                    </div>
                     <span class="section-description">Below is your backup phrase for the new wallet. Print it out and keep it in a safe place.</span>
                 </div>
             </div>
@@ -48,4 +51,17 @@
 
     </section>
 
+@stop
+
+@section('footer-scripts')
+
+    <script type="text/javascript">
+        $('.qrcode', function(){
+            var options = {
+                text: $(this).attr('data-qr');
+            };
+            $(this)->qrcode(options);
+        });
+
+    </script>
 @stop

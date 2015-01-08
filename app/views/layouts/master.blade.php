@@ -45,5 +45,9 @@
 
     <!-- End Document
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <script src="{{ asset('bower_components/qrcode/dist/jquery.qrcode.min.js') }}"></script>
+
+    @section('footer-scripts')
 </body>
 </html>
