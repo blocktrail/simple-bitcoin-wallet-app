@@ -13,12 +13,19 @@ class HomeController extends BaseController {
 		//get the user's wallets and their balances
 		$user = User::find(Auth::user()->id);
 		$wallets = $user->wallets;
-		$wallets->each(function($wallet){
+		//lets also add up the balances of all wallets
+		$totalBalance = 0;
+		$totalUncBalance = 0;
+		$wallets->each(function($wallet) use($totalBalance, $totalUncBalance){
 			$wallet->getBalance();
+			$totalBalance += $wallet->balance;
+			$totalUncBalance += $wallet->unc_balance;
 		});
 
 		$data = array(
-			'wallets' => $wallets
+			'wallets' => $wallets,
+			'totalBalance' => $totalBalance,
+			'totalUncBalance' => $totalUncBalance,
 		);
 
 		return View::make('dashboard.home')->with($data);
