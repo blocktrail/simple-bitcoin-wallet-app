@@ -17,7 +17,7 @@ class AuthController extends Controller {
 
         if ($validator->fails()) {
             //bad input
-            return Redirect::to('login')->withErrors($validator)->withInput(Input::except('password'));
+            return Redirect::route('login')->withErrors($validator)->withInput(Input::except('password'));
         }
 
         //attempt to authenticate
