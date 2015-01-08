@@ -2,21 +2,25 @@
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
+	private $bitcoinClient;
 
-    public function showAbout()
-    {
-        return View::make('home');
-    }
+	public function __construct(Blocktrail $client) {
+		$this->bitcoinClient = $client;
+	}
+
+	public function showDashboard()
+	{
+		//get the user's wallets and their balances
+		$user = User::find(Auth::user()->id);
+		$wallets = $user->wallets;
+		$wallets->each(function($wallet){
+			$wallet->getBalance();
+		});
+
+		$data = array(
+			'wallets' => $wallets
+		);
+
+		return View::make('dashboard.home')->with($data);
+	}
 }
