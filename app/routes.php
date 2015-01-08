@@ -12,21 +12,34 @@
 */
 
 /*---Block Explorer---*/
-Route::get('/', array('as' => 'home', 'uses' => 'ExplorerController@showHome'));
-Route::get('/search', array('as' => 'search', 'uses' => 'ExplorerController@search'));
-Route::get('/address/{address}', array('as' => 'address', 'uses' => 'ExplorerController@showAddress'));
-Route::get('/block/{block}', array('as' => 'block', 'uses' => 'ExplorerController@showBlock'));
-Route::get('/transaction/{transaction}', array('as' => 'transaction', 'uses' => 'ExplorerController@showTransaction'));
+Route::group(['prefix' => 'explorer'], function($router) {
+    Route::get('/', array('as' => 'explorer', 'uses' => 'ExplorerController@showHome'));
+    Route::get('/search', array('as' => 'search', 'uses' => 'ExplorerController@search'));
+    Route::get('/address/{address}', array('as' => 'address', 'uses' => 'ExplorerController@showAddress'));
+    Route::get('/block/{block}', array('as' => 'block', 'uses' => 'ExplorerController@showBlock'));
+    Route::get('/transaction/{transaction}', array('as' => 'transaction', 'uses' => 'ExplorerController@showTransaction'));
+});
 
 
 Route::get('/login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
 Route::post('/login', array('as' => 'login', 'uses' => 'AuthController@authenticate'));
 Route::get('/logout', array('as' => 'logout', 'uses' => 'AuthController@logout'));
 
-/*-- Wallet Section --*/
+/*-- Dashboard Section --*/
 Route::group(['before' => 'auth'], function($router){
+    //Model bindings
+    Route::model('wallet', 'Wallet');
 
-    Route::get('/dashboard', array('as' => 'dashboard', 'uses' => 'WalletController@showDashboard'));
+    Route::get('/dashboard', array('as' => 'dashboard', 'uses' => 'HomeController@showDashboard'));
+
+    //wallet routes
+    Route::get('/wallet/new', array('as' => 'wallet.create', 'uses' => 'WalletController@showNewWallet'));
+    Route::post('/wallet/new', array('as' => 'wallet.create', 'uses' => 'WalletController@createNewWallet'));
+    Route::get('/wallet/{wallet}', array('as' => 'wallet.edit', 'uses' => 'WalletController@showWallet'));
+    Route::post('/wallet/{wallet}', array('as' => 'wallet.edit', 'uses' => 'WalletController@updateWallet'));
+    Route::get('/wallet/{wallet}/send', array('as' => 'wallet.send', 'uses' => 'WalletController@showSendPayment'));
+    Route::post('/wallet/{wallet}/send', array('as' => 'wallet.send', 'uses' => 'WalletController@sendPayment'));
+    Route::get('/wallet/{wallet}/receive', array('as' => 'wallet.receive', 'uses' => 'WalletController@showReceivePayment'));
 });
 
 
