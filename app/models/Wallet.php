@@ -66,6 +66,10 @@ class Wallet extends Eloquent {
 	{
 		return $this->belongsTo('User');
 	}
+	public function webhooks()
+	{
+		return $this->hasMany('Webhook');
+	}
 
 	/*---Accessors and Mutators---*/
 	public function setPasswordAttribute($value)
@@ -83,6 +87,13 @@ class Wallet extends Eloquent {
 			$this->initLiveWallet();
 		}
 		list($this->balance, $this->unc_balance) = $this->liveWallet->getBalance();
+	}
+
+	public function getNewAddress() {
+		if(!$this->liveWallet) {
+			$this->initLiveWallet();
+		}
+		return $this->liveWallet->getNewAddress();
 	}
 
 }
