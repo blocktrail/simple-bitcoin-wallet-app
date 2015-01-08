@@ -17,14 +17,5 @@
     "responsive",
     "boilerplate"
   ],
-  "license": "MIT",
-  "_release": "2.0.4",
-  "_resolution": {
-    "type": "version",
-    "tag": "2.0.4",
-    "commit": "88f03612b05f093e3f235ced77cf89d3a8fcf846"
-  },
-  "_source": "https://github.com/dhg/Skeleton.git",
-  "_target": "2.0.*",
-  "_originalSource": "https://github.com/dhg/Skeleton.git"
+  "license": "MIT"
 }
