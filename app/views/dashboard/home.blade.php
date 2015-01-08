@@ -23,6 +23,7 @@
     <section>
         <div class="container">
             <h4 class="section-heading">Wallets</h4>
+            <p>You have <b>{{ $wallets->count() }}</b> wallets with a total balance of <span class="btc-value">@toBTC($totalBalance)</span> BTC</p>
             <table class="u-full-width blocks">
                 <thead>
                 <tr>
@@ -56,6 +57,7 @@
                 @endforeach
                 </tbody>
             </table>
+            <a class="button u-pull-right" href="{{ URL::route('wallet.create') }}">New Wallet</a>
         </div>
     </section>
 

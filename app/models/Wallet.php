@@ -1,6 +1,7 @@
 <?php
 
 //use Blocktrail\SDK\Connection\Exceptions\WalletExistsError;	//error doesn't exist yet
+use Illuminate\Support\MessageBag;
 
 class Wallet extends Eloquent {
 
@@ -35,22 +36,25 @@ class Wallet extends Eloquent {
 			$bitcoinClient = App::make('Blocktrail');
 			//attempt to create the remote wallet first
 			try {
-				list($wallet, $backupKey) = $bitcoinClient->createNewWallet($model->identity, $model->pass);
+				list($wallet, $backupPhrase) = $bitcoinClient->createNewWallet($model->identity, $model->pass);
 				//$model->primary_mnemonic = $primaryMnenomic;		//cannot access primary key mnemonic yet. Will include later
-				$model->backup_mnemonic = $backupKey;
+				$model->backup_mnemonic = $backupPhrase;
 			}
 			/*
 			catch (WalletExistsError $e) {
 				//if already exists, attempt to initialise it (ensures pass is correct)
 				//all good to go, save model to DB
+
 				//could not initialise, don't save this model
+				Session::flash('errors', 'a wallet with the same identity exists. please try again');
 				return false;
 			}
 			*/
 			catch (Exception $e) {
-				//if already exists, attempt to initialise it (ensures pass is correct)
-				//all good to go, save model to DB
-				//could not initialise, don't save this model
+				//an error occured - add to any existing errors and flash to session
+				$errors =  new MessageBag();
+				$errors->add('general', 'Could not create wallet - '.$e->getMessage());
+				Session::flash('wallet-error', $errors);
 				return false;
 			}
 		});

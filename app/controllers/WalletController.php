@@ -11,7 +11,7 @@ class WalletController extends BaseController {
     public function showDashboard()
     {
         //get the user's wallets and their balances
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
         $wallets = $user->wallets;
         $wallets->each(function($wallet){
             $wallet->getBalance();
@@ -32,7 +32,37 @@ class WalletController extends BaseController {
 
     public function createNewWallet()
     {
-        //
+        //validate input
+        $rules = array(
+            'name' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            //bad input
+            return Redirect::route('wallet.create')->withErrors($validator);
+        }
+
+        //create new wallet
+        $user = Auth::user();
+        $walletData = array(
+            'identity' => str_random(40),
+            'name' => Input::get('name'),
+            'pass' => str_random(6),
+            'user_id' => $user->id
+        );
+        $wallet = New Wallet($walletData);
+        if ($wallet->save()) {
+            //wallet created - delete the backup mnemonic from the database
+            Wallet::where('ID', $wallet->id)->update(array('backup_mnemonic' => null));
+            $data = array(
+                'newWallet' => $wallet
+            );
+            //return the view
+            return View::make('wallet.new')->with($data);
+        } else {
+            //could not create wallet
+            return View::make('wallet.new')->withErrors(Session::get('wallet-error'));
+        }
     }
 
     public function showWallet($wallet)
