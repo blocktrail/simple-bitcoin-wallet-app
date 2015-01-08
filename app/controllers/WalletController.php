@@ -24,4 +24,43 @@ class WalletController extends BaseController {
         return View::make('wallet.home')->with($data);
     }
 
+    public function showNewWallet()
+    {
+        $data = [];
+        return View::make('wallet.new')->with($data);
+    }
+
+    public function createNewWallet()
+    {
+        //
+    }
+
+    public function showWallet($wallet)
+    {
+        $data = [];
+        return View::make('wallet.edit')->with($data);
+    }
+
+    public function updateWallet($wallet)
+    {
+        //
+    }
+
+    public function showSendPayment()
+    {
+        $data = [];
+        return View::make('wallet.send')->with($data);
+    }
+
+    public function sendPayment()
+    {
+        //
+    }
+
+    public function showReceivePayment($wallet)
+    {
+        $data = [];
+        return View::make('wallet.receive')->with($data);
+    }
+
 }
