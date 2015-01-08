@@ -20,7 +20,7 @@ Route::group(['prefix' => 'explorer'], function($router) {
     Route::get('/transaction/{transaction}', array('as' => 'transaction', 'uses' => 'ExplorerController@showTransaction'));
 });
 
-
+/*---Authentication---*/
 Route::get('/login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
 Route::post('/login', array('as' => 'login', 'uses' => 'AuthController@authenticate'));
 Route::get('/logout', array('as' => 'logout', 'uses' => 'AuthController@logout'));
@@ -42,8 +42,12 @@ Route::group(['before' => 'auth'], function($router){
     Route::get('/wallet/{wallet}/receive', array('as' => 'wallet.receive', 'uses' => 'WalletController@showReceivePayment'));
 });
 
+/*---Webhooks---*/
+Route::group(['before' => 'auth.basic'], function($router){
+    Route::get('/webhook/{wallet_identity}', array('as' => 'webhook', 'uses' => 'WebhookController@webhookCalled'));
+});
+
 
 Route::get('test', function(){
-    $client = App::make('Blocktrail');
-    return var_dump($client);
+    return URL::route('webhook');
 });
