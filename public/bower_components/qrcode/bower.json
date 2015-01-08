@@ -1,21 +1,20 @@
 {
-  "name": "qrcode.js",
-  "version": "0.0.1",
-  "homepage": "https://github.com/davidshimjs/qrcodejs",
+  "name": "jquery-qrcode",
+  "version": "0.11.0",
+  "description": "generate QR codes dynamically",
+  "homepage": "http://larsjung.de/jquery-qrcode/",
   "authors": [
-    "Sangmin Shim", "Sangmin Shim <ssm0123@gmail.com> (http://jaguarjs.com)"
+    "Lars Jung <lrsjng@gmail.com> (http://larsjung.de)"
   ],
-  "description": "Cross-browser QRCode generator for javascript",
-  "main": "qrcode.js",
+  "main": "dist/jquery.qrcode.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lrsjng/jquery-qrcode.git"
+  },
   "ignore": [
-    "bower_components",
-    "node_modules",
-    "index.html",
-    "index.svg",
-    "jquery.min.js",
-    "qrcode.min.js"
-  ],
-  "dependencies": {
-    "jquery": ">=1.8.3"
-  }
+    "*",
+    "!dist/*",
+    "!*.md"
+  ]
 }

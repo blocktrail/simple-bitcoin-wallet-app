@@ -15,6 +15,6 @@
   ],
   "dependencies": {
     "skeleton": "https://github.com/dhg/Skeleton.git#2.0.*",
-    "qrcode" : "https://github.com/davidshimjs/qrcodejs.git"
+    "qrcode" : "https://github.com/lrsjng/jquery-qrcode.git"
   }
 }
