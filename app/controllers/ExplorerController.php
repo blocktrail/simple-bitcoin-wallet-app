@@ -103,7 +103,7 @@ class ExplorerController extends BaseController {
             //detect what is being searched for
             $query = Input::get('query');
 
-            $addressRegex = "/^[13][a-km-zA-HJ-NP-Z0-9]{25,34}$/i";
+            $addressRegex = "/^[123][a-km-zA-HJ-NP-Z0-9]{25,34}$/i";
             $blockHashRegex = "/^[0-9a-f]{64}$/i";
             $txHashRegex = "/^[0-9a-f]{64}$/i";
             $blockHeightRegex = "/^[0-9]+$/i";
