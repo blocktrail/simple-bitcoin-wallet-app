@@ -50,8 +50,3 @@ Route::group(['before' => 'auth'], function($router){
 Route::group(['before' => 'auth.basic'], function($router){
     Route::get('/webhook/{wallet_identity}', array('as' => 'webhook', 'uses' => 'WebhookController@webhookCalled'));
 });
-
-
-Route::get('test', function(){
-    return URL::route('webhook');
-});

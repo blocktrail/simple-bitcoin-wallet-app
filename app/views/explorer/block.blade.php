@@ -87,15 +87,4 @@
             </div>
         </div>
     </section>
-
-    <section>
-        <div class="container">
-            <hr>
-            <h3 class="section-heading">Need help getting started?</h3>
-            <p class="section-description">BlockTrail is an amazingly easy place to start with Bitcoin development. If you want to learn more, just visit the documentation!</p>
-            <a class="button button-primary" href="https://www.blocktrail.com/api/docs" target="_blank">View BlockTrail Docs</a>
-        </div>
-    </section>
-
-    <section></section>
 @stop
