@@ -96,4 +96,11 @@ class Wallet extends Eloquent {
 		return $this->liveWallet->getNewAddress();
 	}
 
+	public function pay($address, $amount) {
+		if(!$this->liveWallet) {
+			$this->initLiveWallet();
+		}
+		return $this->liveWallet->pay(array($address => $amount));
+	}
+
 }

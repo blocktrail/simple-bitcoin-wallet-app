@@ -39,7 +39,6 @@
                         {{ Form::label('message', "Message") }}
                         {{ Form::text('message', Input::old('message'), array('placeholder' => 'optional...', 'class' => 'u-full-width')) }}
                         <div class="error u-pull-left">{{ $errors->first('email') }}</div>
-                        <div class="error u-pull-left">{{ $errors->first('message') }}</div>
 
                         {{ Form::submit('Send Request', array('class' => 'button-primary u-pull-left')) }}
                     {{ Form::close() }}

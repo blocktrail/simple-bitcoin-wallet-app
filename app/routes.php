@@ -39,6 +39,9 @@ Route::group(['before' => 'auth'], function($router){
     Route::post('/wallet/{wallet}', array('as' => 'wallet.edit', 'uses' => 'WalletController@updateWallet'));
     Route::get('/wallet/{wallet}/send', array('as' => 'wallet.send', 'uses' => 'WalletController@showSendPayment'));
     Route::post('/wallet/{wallet}/send', array('as' => 'wallet.send', 'uses' => 'WalletController@sendPayment'));
+    Route::get('/wallet/{wallet}/confirm-payment', array('as' => 'wallet.confirm-send', 'uses' => 'WalletController@sendPayment'));
+    Route::post('/wallet/{wallet}/confirm-payment', array('as' => 'wallet.confirm-send', 'uses' => 'WalletController@confirmPayment'));
+    Route::get('/wallet/{wallet}/payment-result', array('as' => 'wallet.payment-result', 'uses' => 'WalletController@showPaymentResult'));
     Route::get('/wallet/{wallet}/receive', array('as' => 'wallet.receive', 'uses' => 'WalletController@showReceivePayment'));
     Route::post('/wallet/{wallet}/send-request', array('as' => 'wallet.send-request', 'uses' => 'WalletController@sendPaymentRequest'));
 });

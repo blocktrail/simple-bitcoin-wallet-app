@@ -1,27 +1,13 @@
 <?php
 
+use Illuminate\Support\MessageBag;
+
 class WalletController extends BaseController {
 
     private $bitcoinClient;
 
     public function __construct(Blocktrail $client) {
         $this->bitcoinClient = $client;
-    }
-
-    public function showDashboard()
-    {
-        //get the user's wallets and their balances
-        $user = Auth::user();
-        $wallets = $user->wallets;
-        $wallets->each(function($wallet){
-            $wallet->getBalance();
-        });
-
-        $data = array(
-            'wallets' => $wallets
-        );
-
-        return View::make('wallet.home')->with($data);
     }
 
     public function showNewWallet()
@@ -85,15 +71,83 @@ class WalletController extends BaseController {
         //
     }
 
-    public function showSendPayment()
+    public function showSendPayment($wallet)
     {
-        $data = [];
+        $wallet->getBalance();
+        $data = [
+            'wallet' => $wallet
+        ];
         return View::make('wallet.send')->with($data);
     }
 
-    public function sendPayment()
+    public function sendPayment($wallet)
     {
-        //
+        //Validate the input then send the user to confirm the payment
+        $rules = array(
+            'address' => 'required|regex:/^[123][a-km-zA-HJ-NP-Z0-9]{25,34}$/i',
+            'amount' => 'required|integer|min:1'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            //bad input
+            return Redirect::route('wallet.send', $wallet->id)->withInput()->withErrors($validator);
+        }
+
+        //flash the input for next request, and show the confirmation view
+        Input::flash();
+        $data = [
+            'wallet' => $wallet,
+            'address' => Input::get('address'),
+            'amount' => Input::get('amount'),
+        ];
+        return View::make('wallet.payment-confirm')->with($data);
+
+    }
+
+    public function confirmPayment($wallet)
+    {
+        //validate wallet owners' password
+        if (!Hash::check(Input::get('password'), Auth::user()->password) ) {
+            Input::flashExcept('password');
+            $data = [
+                'wallet' => $wallet,
+                'address' => Input::get('address'),
+                'amount' => Input::get('amount'),
+            ];
+            $errors =  new MessageBag(array('general' => 'Password is incorrect'));
+            return View::make('wallet.payment-confirm')->with($data)->withErrors($errors);
+        }
+
+        //send off the payment
+        try {
+            $transaction = $wallet->pay(Input::get('address'), Input::get('amount'));
+            $data = [
+                'transaction' => $transaction
+            ];
+            //redirect to the success page (to avoid resubmitting payment on refresh)
+            //return View::make('wallet.payment-result')->with($data);
+            return Redirect::route('wallet.payment-result', $wallet->id)->withData($data);
+        } catch (Exception $e) {
+            //an error occurred
+            Input::flashExcept('password');
+            $data = [
+                'wallet' => $wallet,
+            ];
+            $errors =  new MessageBag(array('general' => $e->getMessage()));
+            return View::make('wallet.payment-result')->with($data)->withErrors($errors);
+        }
+    }
+
+    public function showPaymentResult($wallet)
+    {
+        //use an extra route here to ensure refreshing the page doesn't re-send the payment
+        $data = Session::get('data');
+        if (isset($data['transaction'])) {
+            //payment was successful
+            return View::make('wallet.payment-result')->with($data);
+        } else {
+            return Redirect::route('dashboard');
+        }
     }
 
     public function showReceivePayment($wallet)
@@ -111,6 +165,11 @@ class WalletController extends BaseController {
 
     public function sendPaymentRequest($wallet)
     {
+        $data = [
+            'wallet' => $wallet,
+            'address' => Input::get('address')
+        ];
+
         //validate input
         $rules = array(
             'email' => 'required|email',
@@ -118,12 +177,11 @@ class WalletController extends BaseController {
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
             //bad input
-            $data = [
-                'wallet' => $wallet,
-                'address' => Input::get('address')
-            ];
             return View::make('wallet.receive')->with($data)->withInput(Input::all())->withErrors($validator);
         }
+
+        //send email
+        //...
 
         //success
         return View::make('wallet.request-sent')->with($data);
