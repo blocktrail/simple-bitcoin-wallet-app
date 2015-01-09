@@ -22,6 +22,13 @@
         <div class="container">
             <div class="row">
                 <div class="six columns">
+                    <h4 >Scan QR Code</h4>
+                    <div class="qr-code">
+                        <div class="qrcode" data-qr="{{ $address }}"></div>
+                    </div>
+                </div>
+
+                <div class="six columns">
                     <h4>Request By Email</h4>
                     {{ Form::open(array('route' => array('wallet.send-request', $wallet->id), 'method' => 'post', 'novalidate' => 'true')) }}
                         {{ Form::hidden('address', $address) }}
@@ -30,23 +37,15 @@
                         {{ Form::email('email', Input::old('email'), array('placeholder' => 'sender@domain.com', 'class' => 'u-full-width')) }}
 
                         {{ Form::label('message', "Message") }}
-                        {{ Form::email('message', Input::old('message'), array('placeholder' => '(optional)', 'class' => 'u-full-width')) }}
+                        {{ Form::email('message', Input::old('message'), array('placeholder' => 'optional...', 'class' => 'u-full-width')) }}
                         <div class="error u-pull-left">{{ $errors->first('email') }}</div>
                         <div class="error u-pull-left">{{ $errors->first('message') }}</div>
 
-                        {{ Form::submit('Send Request', array('class' => 'button-primary u-pull-right')) }}
+                        {{ Form::submit('Send Request', array('class' => 'button-primary u-pull-left')) }}
                     {{ Form::close() }}
                 </div>
-
-                <div class="six columns">
-                    <h4>Scan QR Code</h4>
-                    <h5 class="no-margin">Backup Phrase</h5>
-                    <div class="qr-code">
-                        <div class="qrcode" data-qr="{{ $address }}"></div>
-                    </div>
-                    <span class="section-description">Below is your backup phrase for the new wallet. Print it out and keep it in a safe place.</span>
-                </div>
             </div>
+            <hr/>
         </div>
 
     </section>
@@ -56,12 +55,15 @@
 @section('footer-scripts')
 
     <script type="text/javascript">
-        $('.qrcode', function(){
-            var options = {
-                text: $(this).attr('data-qr');
-            };
-            $(this)->qrcode(options);
-        });
+        $(document).ready(function() {
 
+            $('.qrcode').each(function() {
+                var options = {
+                    text: $(this).attr('data-qr')
+                };
+                console.log(this);
+                $(this).qrcode(options);
+            });
+        });
     </script>
 @stop
