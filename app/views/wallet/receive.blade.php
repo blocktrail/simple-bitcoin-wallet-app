@@ -37,7 +37,7 @@
                         {{ Form::email('email', Input::old('email'), array('placeholder' => 'sender@domain.com', 'class' => 'u-full-width')) }}
 
                         {{ Form::label('message', "Message") }}
-                        {{ Form::email('message', Input::old('message'), array('placeholder' => 'optional...', 'class' => 'u-full-width')) }}
+                        {{ Form::text('message', Input::old('message'), array('placeholder' => 'optional...', 'class' => 'u-full-width')) }}
                         <div class="error u-pull-left">{{ $errors->first('email') }}</div>
                         <div class="error u-pull-left">{{ $errors->first('message') }}</div>
 
