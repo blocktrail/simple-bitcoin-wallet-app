@@ -15,6 +15,8 @@
             <p>
                 Ready to spend some bitcoin?
             </p>
+            <a class="button button-primary" href="{{ URL::route('wallet.send', $wallets[0]['id']) }}">Quick Send</a>
+            <a class="button button-primary" href="{{ URL::route('wallet.receive', $wallets[0]['id']) }}">Quick Receive</a>
 
             <hr/>
         </div>
@@ -51,8 +53,8 @@
                         <td>{{ $wallet['name'] }}</td>
                         <td><span class="btc-value">@toBTC($wallet['balance'])</span> BTC</td>
                         <td><span class="btc-value">@toBTC($wallet['unc_balance'])</span> BTC</td>
-                        <td><a href="{{ URL::route('wallet.receive', $wallet['id']) }}">Send Payment</a></td>
-                        <td><a href="{{ URL::route('wallet.send', $wallet['id']) }}">Receive Payment</a></td>
+                        <td><a class="button" href="{{ URL::route('wallet.send', $wallet['id']) }}">Send Payment</a></td>
+                        <td><a class="button" href="{{ URL::route('wallet.receive', $wallet['id']) }}">Receive Payment</a></td>
                     </tr>
                 @endforeach
                 </tbody>
