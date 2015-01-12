@@ -14,7 +14,7 @@
         "php": "~5.5.0",
         "ext-bcmath": "*",
 		"laravel/framework": "4.2.*",
-        "blocktrail/blocktrail-sdk": "1.1.*"
+        "blocktrail/blocktrail-sdk": "1.2.*"
 	},
 	"autoload": {
 		"classmap": [
