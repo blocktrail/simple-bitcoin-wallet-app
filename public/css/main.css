@@ -32,6 +32,10 @@ section {
     font-family: 'Arvo', sans;
 }
 
+.success{
+    color:#389839;
+}
+
 .error{
     color:#DD5454;
 }

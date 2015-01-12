@@ -177,14 +177,28 @@ class WalletController extends BaseController {
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
             //bad input
-            return View::make('wallet.receive')->with($data)->withInput(Input::all())->withErrors($validator);
+            Input::flash();
+            return View::make('wallet.receive')->with($data)->withErrors($validator);
         }
 
         //send email
-        //...
+        $mailData = array(
+            'recipient_email' => Input::get('email'),
+            'payee_fname' => Auth::user()->fname,
+            'payee_lname' => Auth::user()->lname,
+            'payee_email' => Auth::user()->email,
+            'msg'         => Input::get('message'),
+            'address'     => Input::get('address'),
+        );
+
+        //return View::make('emails.wallet.request', $mailData);
+        Mail::send('emails.wallet.request', $mailData, function($message) use($mailData){
+            $message->from($mailData['payee_email'], $mailData['payee_fname'].' '.$mailData['payee_lname']);
+            $message->to($mailData['recipient_email'])->subject('Please sent funds to my Bitcoin wallet');
+        });
 
         //success
-        return View::make('wallet.request-sent')->with($data);
+        return View::make('wallet.receive')->with($data)->with('email_sent', 'Request sent successfully');
     }
 
 }

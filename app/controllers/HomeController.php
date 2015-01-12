@@ -21,7 +21,7 @@ class HomeController extends BaseController {
 			$totalBalance += $wallet->balance;
 			$totalUncBalance += $wallet->unc_balance;
 		});
-		
+
 		$data = array(
 			'wallets' => $wallets,
 			'totalBalance' => $totalBalance,
