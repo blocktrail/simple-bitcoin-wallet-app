@@ -41,7 +41,8 @@ With the server up and running now, simply navigate to [http://localhost:8000](h
 A user and initial wallet has been created through the table seeders. You can log in with `email: test@test.com` `password: test`.
 
 #####6. Things to know
-For webhook creation and use your server needs to be accessible via a public domain is required. You can achieve this easily even on a local dev machine through the use of a tunnel, routing traffic
+For webhook creation and use your server needs to be accessible via a public domain. When developing you can achieve this easily through the use of a tunnel.
+[ngrok](https://ngrok.com/) allows you to easily set up a tunnel between your local environment and an external domain (either controlled by you, or a free subdomain on their domain).
 
 
 
