@@ -6,10 +6,11 @@ class UserTableSeeder extends Seeder {
     {
         DB::table('users')->delete();
 
-        //create a webhook user for authenticating webhook calls
-        User::create(array('fname' => 'webhook', 'lname' => 'webhook', 'email' => 'webhook', 'password' => 'OxGKbaxYmvCumi'));
         //testing user
         User::create(array('fname' => 'joe', 'lname' => 'bloggs', 'email' => 'test@test.com', 'password' => 'test'));
+
+        //create a webhook user for authenticating webhook calls
+        User::create(array('fname' => 'webhook', 'lname' => 'webhook', 'email' => 'webhook', 'password' => 'OxGKbaxYmvCumi'));
     }
 
 }
