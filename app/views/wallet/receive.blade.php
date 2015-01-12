@@ -33,7 +33,7 @@
                     {{ Form::open(array('route' => array('wallet.send-request', $wallet->id), 'method' => 'post', 'novalidate' => 'true')) }}
                         {{ Form::hidden('address', $address) }}
 
-                        {{ Form::label('email', "Sender's Email") }}
+                        {{ Form::label('email', "Email") }}
                         {{ Form::email('email', Input::old('email'), array('placeholder' => 'sender@domain.com', 'class' => 'u-full-width')) }}
 
                         {{ Form::label('message', "Message") }}
