@@ -11,7 +11,7 @@
 
     <section>
         <div class="container">
-            <h3 class="section-heading">Hi There {{ ucfirst(Auth::user()->fname) }}</h3>
+            <h3 class="section-heading">Hi There {{ ucfirst(Auth::user()->fname) }} {{ ucfirst(Auth::user()->lname) }}</h3>
             <p>
                 Ready to spend some bitcoin?
             </p>
@@ -36,17 +36,6 @@
                     <th><div></div></th>
                 </tr>
                 </thead>
-                <!--
-                <tfoot>
-                    <tr>
-                        <td></td>
-                        <td>Total: <span class="btc-value">@toBTC($totalBalance)</span> BTC</td>
-                        <td>Total: <span class="btc-value">@toBTC($totalUncBalance)</span> BTC</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-                -->
                 <tbody>
                 @foreach ($wallets as $key => $wallet)
                     <tr>
