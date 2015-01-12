@@ -10,7 +10,7 @@
         <div class="container">
             <h1>New Wallet</h1>
             <p>
-                Create a new multi-signature HD wallet to store funds in make payments with <br/>
+                Create a new multi-signature HD wallet to store funds and make payments with. <br/>
             </p>
         </div>
 
