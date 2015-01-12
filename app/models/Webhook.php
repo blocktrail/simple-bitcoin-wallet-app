@@ -39,6 +39,22 @@ class Webhook extends Eloquent {
 				return false;
 			}
 		});
+
+		static::deleting(function($model)
+		{
+			$bitcoinClient = App::make('Blocktrail');
+			//attempt to delete the remote webhook first
+			try {
+				$result = $bitcoinClient->deleteWebhook($model->identifier);
+			}
+			catch (Exception $e) {
+				//an error occurred - add to any existing errors and flash to session
+				$errors =  new MessageBag();
+				$errors->add('general', 'Could not delete webhook - '.$e->getMessage());
+				Session::flash('webhook-error', $errors);
+				return false;
+			}
+		});
 	}
 
 
