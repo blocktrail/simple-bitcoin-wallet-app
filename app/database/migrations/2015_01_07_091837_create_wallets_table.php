@@ -15,6 +15,7 @@ class CreateWalletsTable extends Migration {
 		Schema::create('wallets', function($table){
 			$table->increments('id');
 			$table->string('identity')->unique();
+			$table->string('name');
 			$table->string('pass');
 			$table->text('primary_mnemonic');
 			$table->text('backup_mnemonic')->nullable();	//only store backup mnemonic temporarily, until displayed to user
