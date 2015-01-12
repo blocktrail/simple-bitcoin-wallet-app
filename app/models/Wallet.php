@@ -70,6 +70,10 @@ class Wallet extends Eloquent {
 	{
 		return $this->hasOne('Webhook');
 	}
+	public function transactions()
+	{
+		return $this->hasMany('Transaction');
+	}
 
 	/*---Accessors and Mutators---*/
 	public function setPasswordAttribute($value)
