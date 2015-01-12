@@ -4,27 +4,27 @@ section {
     padding-top: 3em;
 }
 
-.no-margin{
+.no-margin {
     margin: 0;
 }
-.margin-t{
+.margin-t {
     margin-top: 1em;
 }
-.margin-b{
+.margin-b {
     margin-bottom: 1em;
 }
-.margin-r{
+.margin-r {
     margin-right: 1em;
 }
-.margin-l{
+.margin-l {
     margin-left: 1em;
 }
 
-.text-right{
+.text-right {
     text-align: right;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
@@ -32,11 +32,11 @@ section {
     font-family: 'Arvo', sans;
 }
 
-.success{
+.success {
     color:#389839;
 }
 
-.error{
+.error {
     color:#DD5454;
 }
 
@@ -47,11 +47,11 @@ section {
 }
 
 /*---pagination---*/
-ul.pagination{
+ul.pagination {
     list-style: none;
 }
 
-ul.pagination li{
+ul.pagination li {
     display: inline;
     line-height: 6.5rem;
     padding: 0 0.6em;
@@ -59,7 +59,7 @@ ul.pagination li{
 
 /*----fixed header scroll window---*/
 /* element containing the table */
-.scroll-window{
+.scroll-window {
     max-height: 40rem;
     overflow-x: hidden;
     overflow-y: auto;
@@ -67,19 +67,19 @@ ul.pagination li{
 }
 
 /*the actual fixed header*/
-table.fixed-header th div{
+table.fixed-header th div {
     position: absolute;
     margin-top: -3.5rem;
     z-index: 11;
 }
 /*collapse the previous header elements*/
-table.fixed-header  thead th{
+table.fixed-header  thead th {
     padding-top:0;
     padding-bottom:0;
     height:0;
 }
 /*the footer ensures the columns are the right min width for the header elements*/
-table.fixed-header  tfoot td{
+table.fixed-header  tfoot td {
     padding-top:0;
     padding-bottom:0;
     height:0;
@@ -129,9 +129,13 @@ nav ul{
     border-top: #E1E1E1 solid 1px;
 }
 
-.navbar-item{
+.navbar-item {
     display: inline;
     line-height: 6.5rem;
+}
+.navbar-item.active a {
+    padding-bottom: 6px;
+    border-bottom: 2px solid #A0E8A5;
 }
 .navbar-link {
     text-transform: uppercase;
@@ -148,7 +152,7 @@ nav ul{
 
 
 /*---Wallet Styles---*/
-code.backup-mnemonic{
+code.backup-mnemonic {
     white-space: normal;
 }
 
@@ -157,9 +161,9 @@ code.backup-mnemonic{
 
 
 /*---Explorer Styles---*/
-.transactions .output{
+.transactions .output {
     color:#0BBE17;
 }
-.transactions .input{
+.transactions .input {
     color:#FF9B9B;
 }

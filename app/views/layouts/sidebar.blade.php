@@ -1,8 +1,8 @@
 <section class="header">
     <nav class="navbar container">
         <ul class="navbar-list">
-            <li class="navbar-item"><a class="navbar-link" href="{{URL::route('dashboard')}}">Wallet</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="{{URL::route('explorer')}}">Explorer</a></li>
+            <li class="navbar-item {{ (Request::is('wallet/*') || Route::currentRouteName()=='dashboard') ? 'active' : '' }}"><a class="navbar-link" href="{{URL::route('dashboard')}}">Wallet</a></li>
+            <li class="navbar-item {{ Request::is('explorer*') ? 'active' : '' }}"><a class="navbar-link" href="{{URL::route('explorer')}}">Explorer</a></li>
             @if(Auth::check())
             <li class="navbar-item u-pull-right"><a class="navbar-link" href="{{URL::route('logout')}}">Logout</a></li>
             @endif
