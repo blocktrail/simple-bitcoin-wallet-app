@@ -9,7 +9,7 @@ class UserTableSeeder extends Seeder {
         //create a webhook user for authenticating webhook calls
         User::create(array('fname' => 'webhook', 'lname' => 'webhook', 'email' => 'webhook', 'password' => 'OxGKbaxYmvCumi'));
         //testing user
-        User::create(array('fname' => 'oisin', 'lname' => 'conolly', 'email' => 'oisin@oacdesigns.com', 'password' => 'test'));
+        User::create(array('fname' => 'joe', 'bloggs' => 'conolly', 'email' => 'test@test.com', 'password' => 'test'));
     }
 
 }
