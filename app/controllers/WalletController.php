@@ -84,7 +84,7 @@ class WalletController extends BaseController {
     {
         //Validate the input then send the user to confirm the payment
         $rules = array(
-            'address' => 'required|regex:/^[123][a-km-zA-HJ-NP-Z0-9]{25,34}$/i',
+            'address' => 'required|regex:/^[a-km-zA-HJ-NP-Z0-9]{26,35}$/i',
             'amount' => 'required|integer|min:1'
         );
         $validator = Validator::make(Input::all(), $rules);
