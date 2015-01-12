@@ -11,8 +11,8 @@ class WebhookTableSeeder extends Seeder {
         if (App::environment('production')) {
             $url = URL::route('webhook', array('wallet_identity' => $wallet->identity));
         } else {
-            //can't use http://localhost, must use a reachable URI. Use a Runscope URL for simple testing
-            $url = "https://serene-mesa-9890.herokuapp.com/webhook-test";
+            //can't use http://localhost, must use a reachable URI. Use a ngrok to create a tunnel from a public domain to our local env (https://ngrok.com)
+            $url = URL::route('webhook', array('wallet_identity' => $wallet->identity));
         }
 
         $newWebhook = new Webhook(array('identifier' => $wallet->identity, 'url' => $url, 'wallet_id' => $wallet->id));
