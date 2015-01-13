@@ -21,7 +21,7 @@
                         <h5 class="no-margin">Success!</h5>
                         <p>
                             Your new wallet '<b>{{ $newWallet->name }}</b>' was created! <br/>
-                            @if($errors)
+                            @if($errors->first('general'))
                             <small class="error"><i><b>NB:</b> {{ $errors->first('general') }}</i></small>
                             @endif
                         </p>
