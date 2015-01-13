@@ -15,9 +15,12 @@
             <p>
                 Ready to spend some bitcoin?
             </p>
+            @if($wallets->count() > 0)
             <a class="button button-primary" href="{{ URL::route('wallet.send', $wallets[0]['id']) }}">Quick Send</a>
             <a class="button button-primary" href="{{ URL::route('wallet.receive', $wallets[0]['id']) }}">Quick Receive</a>
-
+            @else
+                <a class="button button-primary" href="{{ URL::route('wallet.create') }}">Create A Wallet</a>
+            @endif
             <hr/>
         </div>
     </section>
