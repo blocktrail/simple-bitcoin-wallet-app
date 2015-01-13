@@ -140,7 +140,7 @@ class WalletController extends BaseController {
                 'address' => null,
                 'recipient' => Input::get('address'),
                 'direction' => "sent",
-                'amount' => Input::get('amount'),
+                'amount' => -Input::get('amount'),
                 'confirmations' => 0,
                 'wallet_id' => $wallet->id,
             );
