@@ -47,6 +47,21 @@ Route::group(['before' => 'auth'], function($router){
 });
 
 /*---Webhooks---*/
-Route::group(['before' => 'auth.basic'], function($router){
-    Route::get('/webhook/{wallet_identity}', array('as' => 'webhook', 'uses' => 'WebhookController@webhookCalled'));
+Route::group(['before' => 'auth.oncebasic'], function($router){
+    Route::post('/webhook/{wallet_identity}', array('as' => 'webhook', 'uses' => 'WebhookController@webhookCalled'));
+});
+
+Route::get('test', function(){
+
+    return "test";
+
+
+    //easy clear all webhooks from remote server
+    $client = App::make('Blocktrail');
+    $webhooks = $client->allWebhooks();
+    foreach($webhooks['data'] as $webhook) {
+        $client->deleteWebhook($webhook['identifier']);
+    }
+    return $webhooks;
+
 });
