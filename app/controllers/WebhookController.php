@@ -9,14 +9,16 @@ class WebhookController extends BaseController {
         $input = $request->getContent();
         $payload = json_decode($input, true);
 
-        if ($transaction = Transaction::where('tx_hash', $payload['data']['hash'])->first()) {
-            //update existing transaction confirmation count
-            $transaction->confirmations = $payload['data']['confirmations'];
-            $transaction->save();
+        //get the wallet
+        $wallet = Wallet::where('identity', $wallet_identity)->first();
+        $transactions = Transaction::where('tx_hash', $payload['data']['hash'])->where('wallet_id', $wallet->id)->get();
+        if ($transactions->count() > 0) {
+            //update existing transaction confirmation counts for this wallet
+            $transactions->each(function($transaction) use($payload){
+                $transaction->confirmations = $payload['data']['confirmations'];
+                $transaction->save();
+            });
         } else {
-            //get the wallet
-            $wallet = Wallet::where('identity', $wallet_identity)->first();
-
             //workout the amount sent/received by the address
             //...
             $amount = -100;
