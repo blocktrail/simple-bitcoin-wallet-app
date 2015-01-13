@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration {
 		Schema::create('transactions', function($table){
 			$table->increments('id');
 			$table->string('tx_hash')->unique();
-			$table->string('address');
+			$table->string('address')->nullable();
 			$table->string('recipient')->nullable();
 			$table->string('direction');
 			$table->integer('amount');
