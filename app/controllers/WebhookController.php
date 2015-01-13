@@ -9,7 +9,7 @@ class WebhookController extends BaseController {
         $input = $request->getContent();
         $payload = json_decode($input, true);
 
-        if ($transaction = Transaction::find('tx_hash', $payload['data']['hash'])) {
+        if ($transaction = Transaction::where('tx_hash', $payload['data']['hash'])->first()) {
             //update existing transaction confirmation count
             $transaction->confirmations = $payload['data']['confirmations'];
             $transaction->save();
@@ -26,16 +26,17 @@ class WebhookController extends BaseController {
             $direction = 'receive';
             $data = array(
                 'tx_hash' => $payload['data']['hash'],
-                'address' => '',    //$payload['data']['address'],    //not yet implemented in the webhook api
+                'address' => 'none',    //$payload['data']['address'],    //not yet implemented in the webhook api
                 'recipient' => null,                    //only used when sending transaction from this app
                 'direction' => $direction,
                 'amount' => $amount,
                 'confirmations' => $payload['data']['confirmations'],
                 'wallet_id' => $wallet->id,
             );
-            $newTransaction = Transaction::create($data);
-            return $newTransaction;
+
+            $transaction = Transaction::create($data);
         }
+        return $transaction;
     }
 
 }
