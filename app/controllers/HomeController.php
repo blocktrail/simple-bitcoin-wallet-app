@@ -22,10 +22,10 @@ class HomeController extends BaseController {
 			$totalUncBalance += $wallet->unc_balance;
 		});
 
-		//get the user's transaction history (last 20)
+		//get the user's transaction history (paginated)
 		$user->transactions = $user->transactions()->with(array('wallet' => function($query){
 			$query->select(['id', 'name']);
-		}))->orderBy('created_at', 'desc')->limit(20)->get();
+		}))->orderBy('created_at', 'desc')->paginate(10);
 
 		$data = array(
 			'wallets' => $wallets,

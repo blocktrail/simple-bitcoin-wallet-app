@@ -56,9 +56,9 @@
     </section>
 
     <section>
-        <div class="container">
+        <div class="container" id="history">
             <h4 class="section-heading">History</h4>
-            <p>Below are the last 20 transaction involving your wallets.</p>
+            <p>Below is the transaction history involving your wallets.</p>
 
             <div class="scroll-window">
                 <table class="u-full-width fixed-header transactions">
@@ -99,7 +99,7 @@
                     </tbody>
                 </table>
             </div>
-            {{ ''//$transactions->links() }}
+            {{ $transactions->fragment('history')->links() }}
 
         </div>
     </section>
