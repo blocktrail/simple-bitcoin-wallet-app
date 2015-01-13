@@ -51,7 +51,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <a class="button u-pull-right" href="{{ URL::route('wallet.create') }}">New Wallet</a>
+            <a class="button u-pull-right" style="margin-right: 3.5em;" href="{{ URL::route('wallet.create') }}">New Wallet</a>
         </div>
     </section>
 
