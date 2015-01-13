@@ -63,7 +63,7 @@ ul.pagination li {
     max-height: 40rem;
     overflow-x: hidden;
     overflow-y: auto;
-    margin-top: 3.5rem;
+    padding-top: 3.5rem;
 }
 
 /*the actual fixed header*/
