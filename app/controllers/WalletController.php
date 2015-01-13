@@ -47,13 +47,15 @@ class WalletController extends BaseController {
             if (App::environment('production')) {
                 $url = URL::route('webhook', array('wallet_identity' => $wallet->identity));
             } else {
-                //can't use http://localhost, must use a reachable URI. Use a Runscope URL for simple testing
-                $url = "https://serene-mesa-9890.herokuapp.com/webhook-test";
+                //Using an ngrok to create a tunnel from a public domain to our local env (https://ngrok.com) and set as app url (in app.php config file)
+                $url = Config::get('app.url').'/webhook/'.$wallet->identity;
             }
+            //add basic auth to url for webhook user
+            $url = str_replace('://', '://webhook:OxGKbaxYmvCumi@', $url);
             $newWebhook = Webhook::create(array('identifier' => $wallet->identity, 'url' => $url, 'wallet_id' => $wallet->id));
 
             //return the view with new wallet data
-            return View::make('wallet.new')->with($data);
+            return View::make('wallet.new')->with($data)->withErrors(Session::get('webhook-error'));
         } else {
             //could not create wallet
             return View::make('wallet.new')->withErrors(Session::get('wallet-error'));
