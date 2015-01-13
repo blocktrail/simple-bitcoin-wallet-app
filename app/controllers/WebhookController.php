@@ -21,9 +21,9 @@ class WebhookController extends BaseController {
             //...
             $amount = -100;
 
-            //determine the direction of the transaction (receive or send)
+            //determine the direction of the transaction (received or sent)
             //...
-            $direction = 'receive';
+            $direction = 'received';
             $data = array(
                 'tx_hash' => $payload['data']['hash'],
                 'address' => 'none',    //$payload['data']['address'],    //not yet implemented in the webhook api

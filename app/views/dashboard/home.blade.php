@@ -55,4 +55,54 @@
         </div>
     </section>
 
+    <section>
+        <div class="container">
+            <h4 class="section-heading">History</h4>
+            <p>Below are the last 20 transaction involving your wallets.</p>
+
+            <div class="scroll-window">
+                <table class="u-full-width fixed-header transactions">
+                    <thead>
+                    <tr>
+                        <th><div>Date</div></th>
+                        <th><div>Info</div></th>
+                        <th><div>Amount</div></th>
+                        <th><div>Confirmations</div></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td>Date</td>
+                        <td>Info</td>
+                        <td>Amount</td>
+                        <td>Confirmations</td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach ($transactions as $tx)
+                        <tr>
+                            <td>@datetime($tx['created_at'])</td>
+                            <td>
+                                @if($tx['direction'] == "sent")
+                                Sent from <b>{{ $tx['wallet']['name'] }}</b> to <a href="{{ URL::route('address', $tx['recipient']) }}">{{ substr($tx['recipient'], 0, 8)}}</a>...
+                                @else
+                                Receieved into <b>{{ $tx['wallet']['name'] }}</b>
+                                @endif
+                            </td>
+                            <td class="{{ $tx['amount'] > 0 ? 'output' : 'input' }}"><span class="btc-value">@toBTC($tx['amount'])</span> BTC</td>
+                            <td>{{ $tx['confirmations'] }}</td>
+                            <td><a href="{{ URL::route('transaction', $tx['tx_hash']) }}">view transaction</a> </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            {{ ''//$transactions->links() }}
+
+        </div>
+    </section>
+
+    <section></section>
 @stop
