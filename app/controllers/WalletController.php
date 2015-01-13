@@ -126,8 +126,27 @@ class WalletController extends BaseController {
             $data = [
                 'transaction' => $transaction
             ];
+
+            //subscribe to webhook event for the recipient address
+            try {
+                $wallet->webhook->subscribeAddressTransactions(Input::get('address'));
+            } catch (Exception $e) {
+                //
+            }
+
+            //add to the Transaction table
+            $txData = array(
+                'tx_hash' => $transaction,
+                'address' => null,
+                'recipient' => Input::get('address'),
+                'direction' => "sent",
+                'amount' => Input::get('amount'),
+                'confirmations' => 0,
+                'wallet_id' => $wallet->id,
+            );
+            Transaction::firstOrCreate($txData);
+
             //redirect to the success page (to avoid resubmitting payment on refresh)
-            //return View::make('wallet.payment-result')->with($data);
             return Redirect::route('wallet.payment-result', $wallet->id)->withData($data);
         } catch (Exception $e) {
             //an error occurred
