@@ -20,7 +20,10 @@
                     @if( isset($newWallet) )
                         <h5 class="no-margin">Success!</h5>
                         <p>
-                            Your new wallet '<b>{{ $newWallet->name }}</b>' was created!
+                            Your new wallet '<b>{{ $newWallet->name }}</b>' was created! <br/>
+                            @if($errors)
+                            <small class="error"><i><b>NB:</b> {{ $errors->first('general') }}</i></small>
+                            @endif
                         </p>
                         <hr/>
                     @else
