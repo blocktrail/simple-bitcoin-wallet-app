@@ -25,7 +25,9 @@ class WebhookController extends BaseController {
             });
         } else {
             //get the address and value change
-            list($address, $amount) = $payload['addresses'][0];
+            reset($payload['addresses']);
+            $address = key($payload['addresses']);
+            $amount = $payload['addresses'][$address];
 
             //determine the direction of the transaction (received or sent)
             if ($amount > 0) {
