@@ -9,6 +9,11 @@ class WebhookController extends BaseController {
         $input = $request->getContent();
         $payload = json_decode($input, true);
 
+        //--------------------------------TESTING--------------------------------
+        //for now also save the whole input to our DB...just for testing
+        DB::table('test')->insert(array('data' => $input));
+        //--------------------------------/TESTING--------------------------------
+
         //get the wallet
         $wallet = Wallet::where('identity', $wallet_identity)->first();
         $transactions = Transaction::where('tx_hash', $payload['data']['hash'])->where('wallet_id', $wallet->id)->get();
@@ -19,16 +24,18 @@ class WebhookController extends BaseController {
                 $transaction->save();
             });
         } else {
-            //workout the amount sent/received by the address
-            //...
-            $amount = -100;
+            //get the address and value change
+            list($address, $amount) = $payload['addresses'][0];
 
             //determine the direction of the transaction (received or sent)
-            //...
-            $direction = 'received';
+            if ($amount > 0) {
+                $direction = 'received';
+            } else {
+                $direction = "sent";
+            }
             $data = array(
                 'tx_hash' => $payload['data']['hash'],
-                'address' => 'none',    //$payload['data']['address'],    //not yet implemented in the webhook api
+                'address' => $address,
                 'recipient' => null,                    //only used when sending transaction from this app
                 'direction' => $direction,
                 'amount' => $amount,
@@ -38,7 +45,8 @@ class WebhookController extends BaseController {
 
             $transaction = Transaction::create($data);
         }
-        return $transaction;
+
+        return "webhook fired successfully";
     }
 
 }
