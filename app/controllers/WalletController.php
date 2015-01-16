@@ -127,9 +127,10 @@ class WalletController extends BaseController {
                 'transaction' => $transaction
             ];
 
-            //subscribe to webhook event for the recipient address
+            //subscribe general "sending" webhook to the recipient address, just so we can confirm the transaction
             try {
-                $wallet->webhook->subscribeAddressTransactions(Input::get('address'));
+                $sendingWebhook = Webhook::where('identifier', 'sent-transactions')->first();
+                $sendingWebhook->subscribeAddressTransactions(Input::get('address'));
             } catch (Exception $e) {
                 //
             }
