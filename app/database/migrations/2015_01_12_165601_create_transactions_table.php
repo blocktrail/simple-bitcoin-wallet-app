@@ -21,6 +21,7 @@ class CreateTransactionsTable extends Migration {
 			$table->integer('amount');
 			$table->integer('confirmations');
 			$table->integer('wallet_id');
+			$table->datetime('tx_time');
 			$table->timestamps();
 		});
 	}

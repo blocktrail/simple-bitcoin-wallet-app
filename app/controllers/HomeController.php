@@ -25,7 +25,7 @@ class HomeController extends BaseController {
 		//get the user's transaction history (paginated)
 		$user->transactions = $user->transactions()->with(array('wallet' => function($query){
 			$query->select(['id', 'name']);
-		}))->orderBy('created_at', 'desc')->paginate(10);
+		}))->orderBy('tx_time', 'desc')->paginate(10);
 
 		$data = array(
 			'wallets' => $wallets,

@@ -137,6 +137,7 @@ class WalletController extends BaseController {
             //add to the Transaction table
             $txData = array(
                 'tx_hash' => $transaction,
+                'tx_time' => Carbon::now(),
                 'address' => null,
                 'recipient' => Input::get('address'),
                 'direction' => "sent",

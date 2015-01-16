@@ -14,6 +14,7 @@ class Transaction extends Eloquent {
 		'amount',
 		'confirmations',
 		'wallet_id',
+		'tx_time',
 	);
 
 	/*---Relations---*/
