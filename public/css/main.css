@@ -19,6 +19,12 @@ section {
 .margin-l {
     margin-left: 1em;
 }
+.padding-t {
+    padding-top: 1em;
+}
+.padding-b {
+    padding-bottom: 1em;
+}
 
 .text-right {
     text-align: right;
@@ -63,7 +69,7 @@ ul.pagination li {
     max-height: 40rem;
     overflow-x: hidden;
     overflow-y: auto;
-    padding-top: 3.5rem;
+    margin-top: 3.5rem;
 }
 
 /*the actual fixed header*/

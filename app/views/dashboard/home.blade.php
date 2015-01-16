@@ -58,7 +58,7 @@
     <section>
         <div class="container" id="history">
             <h4 class="section-heading">History</h4>
-            <p>Below is the transaction history involving your wallets.</p>
+            <p class="padding-b">Below is the transaction history involving your wallets.</p>
 
             <div class="scroll-window">
                 <table class="u-full-width fixed-header transactions">
