@@ -20,9 +20,11 @@ class BlocktrailServiceProvider extends ServiceProvider {
             $apiSecret = $serviceConfig['secret'];
             $currency = $serviceConfig['currency'];
             $testnet = $serviceConfig['testnet'];
+            $apiVersion = isset($serviceConfig['version']) ? $serviceConfig['version'] : 'v1';
+            $apiEndpoint = isset($serviceConfig['endpoint']) ? $serviceConfig['endpoint'] : null;
 
-            $bitcoinClient = new BlocktrailSDK($apiKey, $apiSecret, $currency, $testnet);
-            if($serviceConfig['disable_ssl']) {
+            $bitcoinClient = new BlocktrailSDK($apiKey, $apiSecret, $currency, $testnet, $apiVersion, $apiEndpoint);
+            if(isset($serviceConfig['disable_ssl']) && $serviceConfig['disable_ssl']) {
                 $bitcoinClient->setCurlDefaultOption('verify', false); //disable ssl verification, use for local testing only
             }
 
