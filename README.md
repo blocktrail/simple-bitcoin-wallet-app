@@ -20,11 +20,11 @@ For email functionality we use [Mailgun](https://mailgun.com). Sign up for an ap
 
     <?php     
       return array(
-        'BLOCKTRAIL_KEY' ='MY_API_KEY',
-        'BLOCKTRAIL_SECRET' ='MY_API_SECRET',
+        'BLOCKTRAIL_KEY' => 'MY_API_KEY',
+        'BLOCKTRAIL_SECRET' => 'MY_API_SECRET',
 
-        'MAILGUN_DOMAIN' ='MY_MAILGUN_DOMAIN',
-        'MAILGUN_SECRET' ='MY_MAILGUN_SECRET',
+        'MAILGUN_DOMAIN' => 'MY_MAILGUN_DOMAIN',
+        'MAILGUN_SECRET' => 'MY_MAILGUN_SECRET',
       );
 *(note that these files have been added to the .gitignore. You should always keep your API details secret)*
 
