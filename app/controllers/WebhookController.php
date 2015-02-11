@@ -11,7 +11,7 @@ class WebhookController extends BaseController {
 
         //--------------------------------TESTING--------------------------------
         //for now also save the whole input to our DB...just for testing
-        DB::table('test')->insert(array('data' => $input));
+        //DB::table('test')->insert(array('data' => $input));
         //--------------------------------/TESTING--------------------------------
 
         //1. first update any and all transaction confirmations
