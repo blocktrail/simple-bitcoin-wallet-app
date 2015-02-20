@@ -1,8 +1,14 @@
 <?php
 
 return array(
+    'APP_URL'   => 'http://localhost',
 
-    'BLOCKTRAIL_KEY' => 'MY_APIKEY',
+    'DB_HOST'       => 'localhost',
+    'DB_DATABASE'   => 'homestead',
+    'DB_USER'       => 'homestead',
+    'DB_PASS'       => 'secret',
+
+    'BLOCKTRAIL_KEY'    => 'MY_APIKEY',
     'BLOCKTRAIL_SECRET' => 'MY_APISECRET',
 
     'MAILGUN_DOMAIN' => 'MY_MAILGUN_DOMAIN',
