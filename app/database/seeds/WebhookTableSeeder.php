@@ -17,7 +17,7 @@ class WebhookTableSeeder extends Seeder {
         }
         $url = str_replace('://', '://webhook:OxGKbaxYmvCumi@', $url);
 
-        $newWebhook = new Webhook(array('identifier' => 'sent-transactions', 'url' => $url));
+        $newWebhook = new Webhook(array('identifier' => 'simple-wallet-sent-transactions', 'url' => $url));
         if(!$newWebhook->save()) {
             $errors = Session::get('webhook-error');
             echo "\n unable to create webhook: {$errors}\n";
