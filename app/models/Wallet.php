@@ -36,9 +36,10 @@ class Wallet extends Eloquent {
 			$bitcoinClient = App::make('Blocktrail');
 			//attempt to create the remote wallet first
 			try {
-				list($wallet, $backupPhrase) = $bitcoinClient->createNewWallet($model->identity, $model->pass);
-				//$model->primary_mnemonic = $primaryMnenomic;		//cannot access primary key mnemonic yet. Will include later
-				$model->backup_mnemonic = $backupPhrase;
+				list($wallet, $primaryMnemonic, $backupMnemonic, $blocktrailPublicKeys) = $bitcoinClient->createNewWallet($model->identity, $model->pass);
+				$model->primary_mnemonic = $primaryMnemonic;
+				$model->backup_mnemonic = $backupMnemonic;
+				$model->blocktrail_keys = $blocktrailPublicKeys;
 			}
 			/*
 			catch (WalletExistsError $e) {
@@ -79,6 +80,16 @@ class Wallet extends Eloquent {
 	public function setPasswordAttribute($value)
 	{
 		$this->attributes['password'] = Hash::make($value);
+	}
+
+	public function setBlocktrailKeysAttribute($value)
+	{
+		$this->attributes['blocktrail_keys'] = json_encode($value);
+	}
+
+	public function getBlocktrailKeysAttribute($value)
+	{
+		return json_decode($value, true);
 	}
 
 	/*--- Other functions ---*/
