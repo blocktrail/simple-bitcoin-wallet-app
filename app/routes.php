@@ -1,5 +1,7 @@
 <?php
 
+use Blocktrail\SDK\BackupGenerator;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -51,17 +53,33 @@ Route::group(['before' => 'auth.oncebasic'], function($router){
     Route::post('/webhook/{wallet_identity}', array('as' => 'webhook', 'uses' => 'WebhookController@webhookCalled'));
 });
 
+
+
+Route::post('webhook-test', function() {
+    //webhooks testing return whatever payload is sent
+    $request = Request::instance();
+    $input = $request->getContent();
+
+    if (!$input ) {
+        //if no Raw input sent, check for input sent by traditional "form-data" method
+        $input = Input::all();
+    }
+
+    return $input;
+});
+
+
+
+/**
+ * Testing route, for general testing and experimenting
+ */
 Route::get('test', function(){
 
-    return "test";
 
 
-    //easy clear all webhooks from remote server
-    $client = App::make('Blocktrail');
-    $webhooks = $client->allWebhooks();
-    foreach($webhooks['data'] as $webhook) {
-        $client->deleteWebhook($webhook['identifier']);
-    }
-    return $webhooks;
+    //create backup doc from wallet info
+    $wallet = Wallet::first();
+    $walletBackupGenerator = new BackupGenerator($wallet->primary_mnemonic, $wallet->backup_mnemonic, $wallet->blocktrail_keys);
+    return $walletBackupGenerator->generateHTML();
 
 });
