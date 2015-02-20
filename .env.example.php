@@ -7,6 +7,8 @@ return array(
     'DB_DATABASE'   => 'homestead',
     'DB_USER'       => 'homestead',
     'DB_PASS'       => 'secret',
+    
+    'ENABLE_TESTNET'    => false,
 
     'BLOCKTRAIL_KEY'    => 'MY_APIKEY',
     'BLOCKTRAIL_SECRET' => 'MY_APISECRET',

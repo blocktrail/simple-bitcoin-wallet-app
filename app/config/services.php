@@ -33,8 +33,8 @@ return array(
         'key'      => $_ENV['BLOCKTRAIL_KEY'],
         'secret'   => $_ENV['BLOCKTRAIL_SECRET'],
         'currency' => 'btc',
-        'testnet'  => false,     //use the testnet
-        'disable_ssl' => false,  //disable ssl verification, only for local testing
+        'testnet'  => $_ENV['ENABLE_TESTNET'],  //use the testnet
+        'disable_ssl' => false,                 //disable ssl verification, only for local testing
     ),
 
 );
