@@ -1,0 +1,11 @@
+<?php
+
+return array(
+
+    'BLOCKTRAIL_KEY' => 'MY_APIKEY',
+    'BLOCKTRAIL_SECRET' => 'MY_APISECRET',
+
+    'MAILGUN_DOMAIN' => 'MY_MAILGUN_DOMAIN',
+    'MAILGUN_SECRET' => 'MY_MAILGUN_SECRET',
+
+);
