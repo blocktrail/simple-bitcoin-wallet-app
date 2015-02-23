@@ -24,7 +24,7 @@
                 <div class="six columns">
                     <h4 >Scan QR Code</h4>
                     <div class="qr-code">
-                        <div class="qrcode" data-qr="{{ $address }}"></div>
+                        <div class="qrcode" data-qr="bitcoin:{{ $address }}"></div>
                     </div>
                 </div>
 
