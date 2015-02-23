@@ -32,7 +32,6 @@ class WebhookController extends BaseController {
                 $data = array(
                     'tx_hash' => $payload['data']['hash'],
                     'tx_time' => Carbon::parse($payload['data']['first_seen_at']),
-                    'address' => null,
                     'recipient' => null,
                     'direction' => $direction,
                     'amount' => $payload['wallet']['balance'],
