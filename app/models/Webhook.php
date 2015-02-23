@@ -29,7 +29,12 @@ class Webhook extends Eloquent {
 			$bitcoinClient = App::make('Blocktrail');
 			//attempt to create the remote webhook first
 			try {
-				$newWebhook = $bitcoinClient->setupWebhook($model->url, $model->identifier);
+				//if a wallet is associated with this webhook, create a wallet webhook
+				if ($model->wallet) {
+					$newWebhook = $bitcoinClient->setupWalletWebhook($model->wallet->identity, $model->identifier, $model->url);
+				} else {
+					$newWebhook = $bitcoinClient->setupWebhook($model->url, $model->identifier);
+				}
 			}
 			catch (Exception $e) {
 				//an error occured - add to any existing errors and flash to session
@@ -45,7 +50,12 @@ class Webhook extends Eloquent {
 			$bitcoinClient = App::make('Blocktrail');
 			//attempt to delete the remote webhook first
 			try {
-				$result = $bitcoinClient->deleteWebhook($model->identifier);
+				//if a wallet is associated with this webhook, delete the wallet webhook
+				if ($model->wallet) {
+					$result = $bitcoinClient->deleteWalletWebhook($model->wallet->identity, $model->identifier);
+				} else {
+					$result = $bitcoinClient->deleteWebhook($model->identifier);
+				}
 			}
 			catch (Exception $e) {
 				//an error occurred - add to any existing errors and flash to session

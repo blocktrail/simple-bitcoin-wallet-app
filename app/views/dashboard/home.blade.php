@@ -87,8 +87,10 @@
                             <td>
                                 @if($tx['direction'] == "sent")
                                 Sent from <b>{{ $tx['wallet']['name'] }}</b> to <a href="{{ URL::route('address', $tx['recipient']) }}">{{ substr($tx['recipient'], 0, 8)}}</a>...
-                                @else
+                                @elseif($tx['direction'] == "received")
                                 Receieved into <b>{{ $tx['wallet']['name'] }}</b>
+                                @elseif($tx['direction'] == "internal")
+                                    Internal transaction with <b>{{ $tx['wallet']['name'] }}</b>: <a href="{{ URL::route('address', $tx['recipient']) }}">{{ substr($tx['recipient'], 0, 8)}}</a>
                                 @endif
                             </td>
                             <td class="{{ $tx['amount'] > 0 ? 'output' : 'input' }}"><span class="btc-value">@toBTC($tx['amount'])</span> BTC</td>

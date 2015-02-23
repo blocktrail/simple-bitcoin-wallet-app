@@ -122,18 +122,10 @@ class WalletController extends BaseController {
 
         //send off the payment
         try {
-            $transaction = $wallet->pay(Input::get('address'), Input::get('amount'));
+            $transaction = $wallet->pay(Input::get('address'), (int)Input::get('amount'));
             $data = [
                 'transaction' => $transaction
             ];
-
-            //subscribe general "sending" webhook to the recipient address, just so we can confirm the transaction
-            try {
-                $sendingWebhook = Webhook::where('identifier', 'sent-transactions')->first();
-                $sendingWebhook->subscribeAddressTransactions(Input::get('address'));
-            } catch (Exception $e) {
-                //
-            }
 
             //add to the Transaction table
             $txData = array(
@@ -177,8 +169,6 @@ class WalletController extends BaseController {
     {
         //get a new address to receive payments to
         $address = $wallet->getNewAddress();
-        //create a webhook event listening to the new address
-        $wallet->webhook->subscribeAddressTransactions($address);
         $data = [
             'wallet' => $wallet,
             'address' => $address

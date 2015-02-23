@@ -9,47 +9,55 @@ class WebhookController extends BaseController {
         $input = $request->getContent();
         $payload = json_decode($input, true);
 
-        //--------------------------------TESTING--------------------------------
-        //for now also save the whole input to our DB...just for testing
-        //DB::table('test')->insert(array('data' => $input));
-        //--------------------------------/TESTING--------------------------------
-
         //1. first update any and all transaction confirmations
         $transactions = Transaction::where('tx_hash', $payload['data']['hash'])->get();
         $transactions->each(function($transaction) use($payload){
             $transaction->confirmations = $payload['data']['confirmations'];
             $transaction->save();
         });
-
-
-        //2. If this webhook call is for a wallet receiving funds, we want to create a Transaction for it
+        
+        //2. now create transaction entries for our wallet's involvement in this Bitcoin transaction
+        //if no transaction exists for this tx and address, create a new one
         if ($wallet = Wallet::where('identity', $wallet_identity)->first()) {
-            //check if a "received" transaction exists already and create it if not ("sent" transaction are created upon sending)
-            $transactions = Transaction::where('tx_hash', $payload['data']['hash'])->where('wallet_id', $wallet->id)->where('direction', 'received')->get();
+            $transactions = Transaction::where('tx_hash', $payload['data']['hash'])
+                ->where('wallet_id', $wallet->id)
+                ->get();
             if ($transactions->count() == 0) {
-                //get the address and value change
-                reset($payload['addresses']);
-                $address = key($payload['addresses']);
-                $amount = $payload['addresses'][$address];
-
                 //determine the direction of the transaction (received or sent)
-                if ($amount > 0) {
+                $recipient = null;
+                $address = null;
+                if ($payload['wallet']['balance'] > 0) {
                     $direction = 'received';
+                    $address = null;            //can't know "who" sent this transaction
                 } else {
+                    //the address sent funds - we can't tell who to, but if it's through this wallet then it should already be handled
                     $direction = "sent";
                 }
                 $data = array(
                     'tx_hash' => $payload['data']['hash'],
                     'tx_time' => Carbon::parse($payload['data']['first_seen_at']),
                     'address' => $address,
-                    'recipient' => null,                    //only used when sending transaction from this app
+                    'recipient' => $recipient,
                     'direction' => $direction,
-                    'amount' => $amount,
+                    'amount' => $payload['wallet']['balance'],
                     'confirmations' => $payload['data']['confirmations'],
                     'wallet_id' => $wallet->id,
                 );
 
                 $transaction = Transaction::create($data);
+            } else {
+                //there is already an entry for this transaction, but we want to ensure it's not being sent back to this wallet
+                // - so if this is a 'sent' tx, check the recipient against the addresses in the payload to see if this is actually an internal tx
+                if ($transactions[0]->direction == "sent") {
+                    foreach ($payload['wallet']['addresses'] as $address) {
+                        if ($address == $transactions[0]->recipient) {
+                            //change the amount of the tx and the type
+                            $transactions[0]->amount = $payload['wallet']['balance'];
+                            $transactions[0]->direction = "internal";
+                            $transactions[0]->save();
+                        }
+                    }
+                }
             }
         }
 
