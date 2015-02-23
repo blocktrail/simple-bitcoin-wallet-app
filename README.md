@@ -13,19 +13,11 @@ You need [composer](https://getcomposer.org/) for package management in the back
 Clone the repository and run `composer update` to download the required packages.
 
 #####2. Get your API keys
+Copy the `env.example.php` file to `.env.local.php` for your local environment, and/or to `env.php` for your production environment. This is where certain settings are modified, including database connections settings and API keys.  
 Go to [www.blocktrail.com](https://www.blocktrail.com/) and sign up for a free API account.
-Create an API key, and then add this to `.env.local.php` for your local environment, and/or to `end.php` if in your production environment.
+Create an API key, and then add this to the `env.local.php` and/or `env.php` files:
 
-For email functionality we use [Mailgun](https://mailgun.com). Sign up for an api key and then also add these to the the `env.local.php` and/or `env.php` files:
-
-    <?php     
-      return array(
-        'BLOCKTRAIL_KEY' => 'MY_API_KEY',
-        'BLOCKTRAIL_SECRET' => 'MY_API_SECRET',
-
-        'MAILGUN_DOMAIN' => 'MY_MAILGUN_DOMAIN',
-        'MAILGUN_SECRET' => 'MY_MAILGUN_SECRET',
-      );
+For email functionality we use [Mailgun](https://mailgun.com). Sign up for an api key and then also add these to the `env.local.php` and/or `env.php` files.  
 *(note that these files have been added to the .gitignore. You should always keep your API details secret)*
 
 #####3. Set up the server
@@ -42,7 +34,8 @@ A user and initial wallet has been created through the table seeders. You can lo
 
 #####6. Things to know
 For webhook creation and use your server needs to be accessible via a public domain. When developing you can achieve this easily through the use of a tunnel.
-[ngrok](https://ngrok.com/) allows you to easily set up a tunnel between your local environment and an external domain (either controlled by you, or a free subdomain on their domain).
+[ngrok](https://ngrok.com/) allows you to easily set up a tunnel between your local environment and an external domain (either controlled by you, or a free subdomain on their domain).  
+If you set up a tunnel to your local server, go into the `env.local.php` and/or `env.php` files and set the `'APP_URL'` setting to be the public URL. You'll need to do this before you run the database seeder, so that initial wallet and webhook is created with the correct url.
 
 
 
