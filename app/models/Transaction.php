@@ -8,7 +8,6 @@ class Transaction extends Eloquent {
 
 	protected $fillable = array(
 		'tx_hash',
-		'address',
 		'recipient',
 		'direction',
 		'amount',
