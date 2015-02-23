@@ -15,7 +15,7 @@ class WebhookController extends BaseController {
             $transaction->confirmations = $payload['data']['confirmations'];
             $transaction->save();
         });
-        
+
         //2. now create transaction entries for our wallet's involvement in this Bitcoin transaction
         //if no transaction exists for this tx and address, create a new one
         if ($wallet = Wallet::where('identity', $wallet_identity)->first()) {
@@ -24,20 +24,16 @@ class WebhookController extends BaseController {
                 ->get();
             if ($transactions->count() == 0) {
                 //determine the direction of the transaction (received or sent)
-                $recipient = null;
-                $address = null;
                 if ($payload['wallet']['balance'] > 0) {
                     $direction = 'received';
-                    $address = null;            //can't know "who" sent this transaction
                 } else {
-                    //the address sent funds - we can't tell who to, but if it's through this wallet then it should already be handled
                     $direction = "sent";
                 }
                 $data = array(
                     'tx_hash' => $payload['data']['hash'],
                     'tx_time' => Carbon::parse($payload['data']['first_seen_at']),
-                    'address' => $address,
-                    'recipient' => $recipient,
+                    'address' => null,
+                    'recipient' => null,
                     'direction' => $direction,
                     'amount' => $payload['wallet']['balance'],
                     'confirmations' => $payload['data']['confirmations'],
