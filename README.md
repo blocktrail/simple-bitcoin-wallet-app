@@ -5,6 +5,12 @@ This a simple example of a personal Bitcoin wallet, built using the [Blocktrail 
 You can use it to get started on integrating Bitcoin data in your own php applications.
 
 ###Requirements
+You need the following packages installed:
+```
+sudo apt-get install php5-bcmath php5-intl php5-gmp php5-mcrypt
+sudo php5enmod mcrypt
+```
+
 You need [composer](https://getcomposer.org/) for package management in the backend.
 
 
