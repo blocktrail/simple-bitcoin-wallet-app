@@ -49,7 +49,15 @@ For webhook creation and use your server needs to be accessible via a public dom
 [ngrok](https://ngrok.com/) allows you to easily set up a tunnel between your local environment and an external domain (either controlled by you, or a free subdomain on their domain).  
 If you set up a tunnel to your local server, go into the `env.php` file and set the `'APP_URL'` setting to be the public URL. You'll need to do this before you run the database seeder, so that initial wallet and webhook is created with the correct url.
 
+***Windows Developers***  
+A note for windows developers: you may encounter an issue in php with cURL and SSL certificates, where cURL is unable to verify a server's cert with a CA ((error 60)[http://curl.haxx.se/libcurl/c/libcurl-errors.html]).  
+Too often the suggested solution is to disable ssl cert verification in cURL, but this completely defeats the point of using SSL. Instead you should take two very simple steps to solve the issue permanently:  
 
+1. download `cacert.pem` from the [curl website](http://curl.haxx.se/docs/caextract.html). This is a bundle of trusted CA root certs extracted from mozilla.org. Save it in a folder within your php installation.  
+2. open your `php.ini` and add/edit the following line (use an absolute path to where you placed the cert bundle):  
+  ```
+  curl.cainfo = C:\php\certs\cacert.pem
+  ```
 
 
 ###Need Help?
