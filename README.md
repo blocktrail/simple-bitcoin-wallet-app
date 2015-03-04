@@ -22,16 +22,15 @@ You will also need [composer](https://getcomposer.org/) for package management i
 
 ###Getting Started
 #####1. Copy the code
-First clone this repository and copy the `env.example.php` to a file called `env.php`.  
-Then run `composer update` to download all the required packages.
+First clone this repository and copy the `env.example.php` to a file called `env.php` . This contains certain environment specific variables used in the app, including datbase connection settings and API keys.  
+Now run `composer update` to download all the required packages.
 
 #####2. Get your API keys
-The `env.php` file is where certain environment variables are modified, including database connections settings and API keys.  
 Go to [www.blocktrail.com](https://www.blocktrail.com/) and sign up for a free API account.
-Create an API key, and then add this to the `env.php` file.
+Create an API key, and then add this with the corresponding secret to the `env.php` file.
 
-For email functionality we use [Mailgun](https://mailgun.com). Sign up for an api key and then also add these to the `env.php` file.  
-*(note that this file has been added to the .gitignore. You should always keep your API details secret)*
+For email functionality we use [Mailgun](https://mailgun.com). Sign up for an api key and then also add these to the `env.php` file. You can skip this step if you don't want to use the email feature.  
+*(note that the .env.php file has been added to the .gitignore. You should always keep your API details secret)*
 
 #####3. Set up the server
 run `php artisan serve` to quickly setup a nice little local server serve the app. Alternatively you can set up [Laravel Homestead](http://laravel.com/docs/4.2/homestead), the pre-packaged Vagrant virtual machine that provides you with a quick and easy local web server environment.
@@ -45,9 +44,9 @@ With the server up and running now, simply navigate to [http://localhost:8000](h
 A user and initial wallet has been created through the table seeders. You can log in with `email: test@test.com` `password: test`.
 
 #####6. Things to know
-For webhook creation and use your server needs to be accessible via a public domain. When developing you can achieve this easily through the use of a tunnel.
+For webhooks to be created and used your server needs to be accessible via a public domain. When developing you can achieve this easily through the use of a tunnel.
 [ngrok](https://ngrok.com/) allows you to easily set up a tunnel between your local environment and an external domain (either controlled by you, or a free subdomain on their domain).  
-If you set up a tunnel to your local server, go into the `env.php` file and set the `'APP_URL'` setting to be the public URL. You'll need to do this before you run the database seeder, so that initial wallet and webhook is created with the correct url.
+If you set up a tunnel to your local server, go into the `env.php` file and set the `'APP_URL'` setting to be the public URL. You'll need to do this before you run the database seeder, so that the initial wallet and webhook is created with the correct url.
 
 ***Windows Developers***  
 A note for windows developers: you may encounter an issue in php with cURL and SSL certificates, where cURL is unable to verify a server's cert with a CA ((error 60)[http://curl.haxx.se/libcurl/c/libcurl-errors.html]).  
@@ -63,4 +62,4 @@ Too often the suggested solution is to disable ssl cert verification in cURL, bu
 ###Need Help?
 Get in contact with us at [devs@blocktrail.com](mailto://devs@blocktrail.com) and we'll be happy to help you in any way we can.
 
-A tutorial will be coming soon describing the steps to creating this Bitcoin block explorer with Laravel.
+A tutorial will be coming soon describing the steps to creating this personal Bitcoin wallet with Laravel.
